@@ -8,132 +8,207 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Button from "@theme/Button";
 import Layout from "@theme/Layout";
 import classnames from "classnames";
-import React, { useRef } from "react";
-import ScrollUpButton from "react-scroll-up-button";
-import styles from "./styles.module.css";
+import React, { useRef, useState } from "react";
 import Particles from "react-particles-js";
+import ScrollUpButton from "react-scroll-up-button";
+import BrowserWindow from "../components/BrowserWindow";
+import styles from "./styles.module.css";
 
 const particlesOptions = {
-  "particles":{
-    "number":{
-      "value":185,
-      "density":{
-        "enable":true,
-        "value_area":1341.5509907748635
-      }
+  particles: {
+    number: {
+      value: 185,
+      density: {
+        enable: true,
+        value_area: 1341.5509907748635,
+      },
     },
-"color":{
-  "value":"#FA582D"
-},
-"shape":{
-  "type":"circle",
-  "stroke":{
-    "width":0,
-    "color":"#000000"
+    color: {
+      value: "#FA582D",
+    },
+    shape: {
+      type: "circle",
+      stroke: {
+        width: 0,
+        color: "#000000",
+      },
+      polygon: {
+        nb_sides: 5,
+      },
+      image: {
+        src: "",
+        width: 100,
+        height: 100,
+      },
+    },
+    opacity: {
+      value: 1,
+      random: true,
+      anim: {
+        enable: true,
+        speed: 0.8120772123013451,
+        opacity_min: 0,
+        sync: false,
+      },
+    },
+    size: {
+      value: 5,
+      random: true,
+      anim: {
+        enable: false,
+        speed: 2,
+        size_min: 0.3,
+        sync: false,
+      },
+    },
+    line_linked: {
+      enable: false,
+      distance: 150,
+      color: "#ffffff",
+      opacity: 0.4,
+      width: 1,
+    },
+    move: {
+      enable: true,
+      speed: 1,
+      direction: "none",
+      random: true,
+      straight: false,
+      out_mode: "out",
+      bounce: false,
+      attract: {
+        enable: false,
+        rotateX: 600,
+        rotateY: 600,
+      },
+    },
   },
-  "polygon":{
-    "nb_sides":5
+  interactivity: {
+    detect_on: "canvas",
+    events: {
+      onhover: {
+        enable: false,
+        mode: "grab",
+      },
+      onclick: {
+        enable: true,
+        mode: "push",
+      },
+      resize: true,
+    },
+    modes: {
+      grab: {
+        distance: 400,
+        line_linked: {
+          opacity: 1,
+        },
+      },
+      bubble: {
+        distance: 316.71011279752463,
+        size: 0,
+        duration: 6.252994534720358,
+        opacity: 0,
+        speed: 3,
+      },
+      repulse: {
+        distance: 535.9709601188878,
+        duration: 0.4,
+      },
+      push: {
+        particles_nb: 4,
+      },
+      remove: {
+        particles_nb: 2,
+      },
+    },
   },
-  "image":{
-    "src":"","width":100,
-    "height":100
-  }
-},
-"opacity":{
-  "value":1,
-  "random":true,
-  "anim":{
-    "enable":true,
-    "speed":0.8120772123013451,
-    "opacity_min":0,
-    "sync":false
-  }
-},
-"size":{
-  "value":5,
-  "random":true,
-  "anim":{
-    "enable":false,
-  "speed":2,
-  "size_min":0.3,
-  "sync":false
-}
-},
-"line_linked":{
-  "enable":false,
-  "distance":150,
-  "color":"#ffffff",
-  "opacity":0.4,
-  "width":1
-},
-"move":{
-  "enable":true,
-  "speed":1,
-  "direction":"none",
-  "random":true,
-  "straight":false,
-  "out_mode":"out",
-  "bounce":false,
-  "attract":{
-    "enable":false,
-    "rotateX":600,
-    "rotateY":600
-  }
-}
-},
-"interactivity":{
-  "detect_on":"canvas",
-  "events":{
-    "onhover":{
-      "enable":false,
-      "mode":"grab"
-    },
-    "onclick":{
-      "enable":true,
-      "mode":"push"
-    },
-    "resize":true
-  },"modes":{
-    "grab":{
-      "distance":400,
-      "line_linked":{
-        "opacity":1
-      }
-    },
-"bubble":{
-  "distance":316.71011279752463,
-  "size":0,
-  "duration":6.252994534720358,
-  "opacity":0,
-  "speed":3
-},
-"repulse":{
-  "distance":535.9709601188878,
-  "duration":0.4
-},
-"push":{
-  "particles_nb":4
-},
-"remove":{
-  "particles_nb":2
-}
-}
-},
-"retina_detect":true
+  retina_detect: true,
 };
 
+function Site({ imageUrl, description, href, title }) {
+  const imgUrl = useBaseUrl(imageUrl);
+  return (
+    <Button
+      className={classnames(styles.article)}
+      variant="plain"
+      href={href}
+      target="_self"
+      uppercase={false}
+      newTab={false}
+    >
+      <section className={styles.image__section}>
+        <img src={imgUrl} alt={title} className={styles.cardImage} />
+      </section>
+      <section className={styles.article__section}>
+        <span className={classnames(styles.article__content)}>
+          <header>
+            <h2 className={classnames("margin-bottom--sm", styles.title)}>
+              {title}
+            </h2>
+          </header>
+
+          <section>{description}</section>
+        </span>
+      </section>
+    </Button>
+  );
+}
+
+const sites = [
+  {
+    imageUrl: "/img/Cortex-green.svg",
+    description: (
+      <>
+        An open, continuous security platform to integrate rich context from
+        cloud, endpoint and network data
+      </>
+    ),
+    href: "https://cortex.pan.dev",
+    title: "Cortex for Developers",
+  },
+  {
+    imageUrl: "/img/Strata-yellow.svg",
+    description: (
+      <>
+        Build next-gen automation with the worlds only next-generation security
+        platform
+      </>
+    ),
+    href: "https://strata.pan.dev",
+    title: "Strata for Developers",
+  },
+  {
+    imageUrl: "/img/Cortex-XSOAR-product-green.svg",
+    description: (
+      <>Develop new integrations, automations, playbooks, reports and more</>
+    ),
+    href: "https://xsoar.pan.dev",
+    title: "XSOAR for Developers",
+  },
+  {
+    imageUrl: "/img/prismalogo.png",
+    description: <>Develop for the journey to the cloud with Prisma</>,
+    href: "https://prisma.pan.dev",
+    title: "Prisma Cloud for Developers",
+  },
+];
+
 function Home() {
+  const [site, setSite] = useState("https://pan.dev");
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
-  const scrollToRef = ref => ref.current.scrollIntoView({ behavior: "smooth" });
-  const vertificalsRef = useRef(null);
+  const scrollToRef = (ref) =>
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  const vertificalsRef = useRef(0);
   const scrollToVerticals = () => scrollToRef(vertificalsRef);
   return (
     <Layout
       title={`${siteConfig.themeConfig.navbar.title}`}
       description="Palo Alto Networks for Developers"
+      wrapperClassName="homepage"
     >
       <ScrollUpButton />
       <header
@@ -149,11 +224,6 @@ function Home() {
                 <div>
                   <Particles className="particles" params={particlesOptions} />
                 </div>
-                <img
-                  alt="Devin the Developer Advocate"
-                  className={styles.heroLogo}
-                  src={useBaseUrl("img/devin-wave.svg")}
-                />
                 Develop the{" "}
                 <span className={styles.heroProjectKeywords}>
                   next generation
@@ -164,7 +234,7 @@ function Home() {
               <div className={styles.indexCtas}>
                 <Link
                   className={classnames(
-                    "button button--primary button--lg",
+                    "button button--primary button--outline button--lg",
                     styles.indexCtasGetStartedButton
                   )}
                   onClick={scrollToVerticals}
@@ -178,117 +248,34 @@ function Home() {
       </header>
       <main>
         <section className={styles.toolsslant} ref={vertificalsRef}>
-          <div className="container">
-            <h1 className={styles.toolTag}> Develop with... </h1>
-            <div className="row">
-              {/* Cortex */}
-              <div className={classnames("col col--6", styles.tools)}>
-                <div className="text--center">
-                  <img
-                    className={styles.toolImage}
-                    src="img/Cortex-green.svg"
-                    alt="Cortex"
-                  />
-                </div>
-                <h3>Cortex</h3>
-                <p className="text text--seconday">
-                  An open, continuous security platform to integrate rich
-                  context from cloud, endpoint and network data
-                </p>
-                <div className={styles.buttons}>
-                  <Link
-                    className={classnames(
-                      "button button--primary button--md",
-                      styles.cortex
-                    )}
-                    href="https://cortex.pan.dev"
-                  >
-                    Cortex for Developers
-                  </Link>
-                </div>
+          <div className={classnames("container", styles.container__width)}>
+            <div className="row row--no-gutters">
+              <div className={classnames("col col--5", styles.browser__window)}>
+                <BrowserWindow url={site} minHeight="450px">
+                  <p>test</p>
+                </BrowserWindow>
               </div>
-
-              {/* PAN-OS */}
-              <div className={classnames("col col--6", styles.tools)}>
-                <div className="text--center">
-                  <img
-                    className={styles.toolImage}
-                    src="img/Strata-yellow.svg"
-                    alt="Strata"
-                  />
-                </div>
-                <h3>Strata</h3>
-                <p className="text text--seconday">
-                  Build next-gen automation with the worlds only next-generation
-                  security platform
-                </p>
-                <div className={styles.buttons}>
-                  <Link
-                    className={classnames(
-                      "button button--primary button--md",
-                      styles.strata
-                    )}
-                    href="https://strata.pan.dev"
-                  >
-                    Strata for Developers
-                  </Link>
-                </div>
+              <div className={classnames("col col--7")}>
+                {sites && sites.length && (
+                  <section className={styles.sites}>
+                    <div className={classnames("container")}>
+                      <div className="row">
+                        {sites.map((props, idx) => (
+                          <div
+                            className={classnames(
+                              "col col--6",
+                              styles.cards__justify
+                            )}
+                            onMouseOver={() => setSite(props.href)}
+                          >
+                            <Site key={idx} {...props} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </section>
+                )}
               </div>
-
-              {/* Cortex XSOAR */}
-              <div className={classnames("col col--6", styles.tools)}>
-                <div className="text--center">
-                  <img
-                    className={styles.toolImage}
-                    src="img/Cortex-XSOAR-product-green.svg"
-                    alt="Cortex XSOAR"
-                  />
-                </div>
-                <h3>Cortex XSOAR</h3>
-                <p className="text text--seconday">
-                  Develop new integrations, automations, playbooks, reports and
-                  more
-                </p>
-                <div className={styles.buttons}>
-                  <Link
-                    className={classnames(
-                      "button button--primary button--md",
-                      styles.cortex
-                    )}
-                    href="https://xsoar.pan.dev"
-                  >
-                    Cortex XSOAR
-                  </Link>
-                </div>
-              </div>
-
-              {/* Prisms */}
-              <div className={classnames("col col--6", styles.tools)}>
-                <div className="text--center">
-                  <img
-                    className={styles.toolImage}
-                    src="img/prismalogo.png"
-                    alt="Prisma"
-                  />
-                </div>
-                <h3>Prisma Cloud</h3>
-                <p className="text text--seconday">
-                Develop for the journey to the cloud with Prisma
-                </p>
-                <div className={styles.buttons}>
-                  <Link
-                    className={classnames(
-                      "button button--primary button--md",
-                      styles.prisma
-                    )}
-                    href="https://prisma.pan.dev/"
-                  >
-                    Prisma Cloud
-                  </Link>
-                </div>
-              </div>
-
-
             </div>
           </div>
         </section>
