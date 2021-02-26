@@ -5,6 +5,7 @@ sidebar_label: Contributing Guidelines
 description: Contributing guidelines
 keywords:
   - contributing guidelines
+hide_title: true
 ---
 
 # Contributing Guidelines
