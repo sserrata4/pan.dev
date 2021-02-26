@@ -21,7 +21,40 @@
   --ifm-color-primary-light: #fb6f4a;
   --ifm-color-primary-lighter: #fb7a58;
   --ifm-color-primary-lightest: #fc9d83;
-
+  /* Secondary Colors */
+  --ifm-color-secondary: #f5f5fa;
+  --ifm-color-secondary-dark: #d4d4e9;
+  --ifm-color-secondary-darker: #c3c3e1;
+  --ifm-color-secondary-darkest: #9292c8;
+  --ifm-color-secondary-light: #ffffff;
+  --ifm-color-secondary-lighter: #ffffff;
+  --ifm-color-secondary-lightest: #ffffff;
+  /* Status Colors */
+  --ifm-color-info: #00c0e8;
+  --ifm-color-success: #00cc66;
+  --ifm-color-warning: #ffcb06;
+  --ifm-color-danger: #fa582d;
+  /* Navbar */
+  --ifm-navbar-search-input-color: var(--ifm-color-gray-900);
+  --ifm-background-color: #fff;
+  --ifm-background-surface-color: #fff;
+  --ifm-footer-background-color: #2d3436 !important;
+  --ifm-footer-title-color: #fff;
+  --ifm-footer-link-color: #fff;
+  --ifm-heading-font-weight: 700;
+  --ifm-button-font-weight: 600;
+  --ifm-font-weight-semibold: 500;
+  --ifm-font-size-base: 95%;
+  --ifm-code-font-size: 90%;
+  --ifm-line-height-base: 1.5;
+  --ifm-leading-desktop: 1.5;
+  --ifm-list-margin: var(--ifm-leading);
+  --ifm-font-family-base: "Montserrat", sans-serif, "Font Awesome 5 Free";
+  --ifm-font-family-monospace: "Roboto Mono", monospace;
+  /* Links */
+  --ifm-link-color: var(--ifm-color-primary-dark);
+  --ifm-link-hover-color: var(--ifm-color-primary-darker);
+  --ifm-navbar-link-hover-color: var(--ifm-color-primary-dark);
 }
 
 /* Dark mode overrides */
@@ -35,11 +68,16 @@ html[data-theme="dark"] {
   --ifm-color-emphasis-700: var(--ifm-color-gray-300);
   --ifm-color-emphasis-800: var(--ifm-color-gray-200);
   --ifm-color-emphasis-900: var(--ifm-color-gray-100);
-
-  --ifm-background-color: #ffffff;
-  --ifm-background-surface-color: #1e2125;
-
-  --ifm-navbar-background-color: #333333;
+  --ifm-background-color: #3b4446;
+  --ifm-navbar-background-color: #2d3436;
+  --ifm-navbar-link-hover-color: var(--ifm-color-primary-dark) !important;
+  --ifm-background-surface-color: #3b4446;
+  --ifm-footer-background-color: #2d3436 !important;
+  --ifm-footer-link-color: #fff;
+  --ifm-footer-title-color: #fff;
+  --docsearch-modal-background: var(--ifm-background-color) !important;
+  --docsearch-footer-background: var(--ifm-background-color) !important;
+  --docsearch-hit-background: var(--ifm-navbar-background-color) !important;
 
   --ifm-hover-overlay: rgba(255, 255, 255, 0.05);
 
@@ -49,19 +87,61 @@ html[data-theme="dark"] {
 
   /* Mardown color in dark mode */
   --ifm-color-gray-800: var(--ifm-color-gray-300);
+
+  /* Code background and color */
+  --ifm-code-background: #282d33;
+  --ifm-code-color: #fff;
+
+  --ifm-menu-link-sublist-icon-filter: none !important;
 }
 
-.footer.footer--dark{
-  background-color: #807C7B;
+/* Center all columns in main wrapper */
+.main-wrapper {
+  max-width: 1400px;
+  width: 1400px;
+  align-self: center;
+}
+
+.main-wrapper h1[class^="docTitle"] {
+  font-size: 2.8rem;
+}
+
+@media (max-width: 1416px) {
+  .main-wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1320px) and (min-width: 997px) {
+  .container {
+    max-width: calc(
+      var(--ifm-container-width) - 125px - var(--ifm-spacing-horizontal) * 2
+    );
+  }
+}
+
+/* Center navbar items */
+.navbar__inner {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* Force homepage to full width */
+.homepage {
+  width: 100%;
+  max-width: 100%;
+}
+
+.footer.footer--dark {
+  background-color: #2d3436;
 }
 
 .hero {
   z-index: 0;
 }
 
-.hero 
-
-.button {
+.hero .button {
   z-index: 1;
 }
 
@@ -77,4 +157,28 @@ html[data-theme="dark"] {
 
 .button.button--primary:hover {
   background-color: var(--ifm-color-primary);
+}
+
+/* GitHub Header Link */
+.header-github-link:hover {
+  opacity: 0.6;
+}
+
+.header-github-link:before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: flex;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
+    no-repeat;
+}
+
+html[data-theme="dark"] .header-github-link:before {
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
+    no-repeat;
+}
+
+/* Hide footer until facet filtering is allowed on search page */
+[class^="DocSearch-HitsFooter"] {
+  display: none !important;
 }
