@@ -12,7 +12,6 @@ import useWindowSize, { windowSizes } from "@theme/hooks/useWindowSize";
 import IconMenu from "@theme/IconMenu";
 import Logo from "@theme/Logo";
 import NavbarItem from "@theme/NavbarItem";
-import SearchBar from "@theme/SearchBar";
 import Toggle from "@theme/Toggle";
 import clsx from "clsx";
 import React, { useCallback, useEffect, useState } from "react";
@@ -34,22 +33,16 @@ function splitNavItemsByPosition(items) {
   };
 }
 
-function removeSearchFromNavbar(items) {
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].type === "search") {
-      items.splice(i, 1);
-    }
-  }
-  return items;
-}
-
 function Navbar() {
   const {
     navbar: { items, hideOnScroll, style },
     colorMode: { disableSwitch: disableColorModeSwitch },
   } = useThemeConfig();
-  const filteredItems = removeSearchFromNavbar(items);
-  console.log(filteredItems);
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].type === "search") {
+      items.splice(i, 1);
+    }
+  }
   const [sidebarShown, setSidebarShown] = useState(false);
   const { isDarkTheme, setLightTheme, setDarkTheme } = useThemeContext();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
@@ -70,10 +63,8 @@ function Navbar() {
       setSidebarShown(false);
     }
   }, [windowSize]);
-  const hasSearchNavbarItem = filteredItems.some(
-    (item) => item.type === "search"
-  );
-  const { leftItems, rightItems } = splitNavItemsByPosition(filteredItems);
+  const hasSearchNavbarItem = items.some((item) => item.type === "search");
+  const { leftItems, rightItems } = splitNavItemsByPosition(items);
   return (
     <nav
       ref={navbarRef}
@@ -87,7 +78,7 @@ function Navbar() {
     >
       <div className="navbar__inner">
         <div className="navbar__items">
-          {filteredItems != null && filteredItems.length !== 0 && (
+          {items != null && items.length !== 0 && (
             <button
               aria-label="Navigation bar toggle"
               className="navbar__toggle clean-btn"
@@ -119,7 +110,6 @@ function Navbar() {
               onChange={onToggleChange}
             />
           )}
-          {hasSearchNavbarItem && <SearchBar />}
         </div>
       </div>
       <div
@@ -142,7 +132,7 @@ function Navbar() {
         <div className="navbar-sidebar__items">
           <div className="menu">
             <ul className="menu__list">
-              {filteredItems.map((item, i) => (
+              {items.map((item, i) => (
                 <NavbarItem
                   mobile
                   {...item} // TODO fix typing

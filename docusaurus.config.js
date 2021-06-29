@@ -47,10 +47,6 @@ const blogs = (module.exports = {
           label: "Blog",
           position: "right",
         },
-        {
-          type: "search",
-          position: "left",
-        },
       ],
     },
     footer: {
