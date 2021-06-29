@@ -40,6 +40,7 @@ function removeSearchFromNavbar(items) {
       items.splice(i, 1);
     }
   }
+  return items;
 }
 
 function Navbar() {
@@ -47,7 +48,7 @@ function Navbar() {
     navbar: { items, hideOnScroll, style },
     colorMode: { disableSwitch: disableColorModeSwitch },
   } = useThemeConfig();
-  removeSearchFromNavbar(items);
+  filteredItems = removeSearchFromNavbar(items);
   const [sidebarShown, setSidebarShown] = useState(false);
   const { isDarkTheme, setLightTheme, setDarkTheme } = useThemeContext();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
@@ -68,8 +69,10 @@ function Navbar() {
       setSidebarShown(false);
     }
   }, [windowSize]);
-  const hasSearchNavbarItem = items.some((item) => item.type === "search");
-  const { leftItems, rightItems } = splitNavItemsByPosition(items);
+  const hasSearchNavbarItem = filteredItems.some(
+    (item) => item.type === "search"
+  );
+  const { leftItems, rightItems } = splitNavItemsByPosition(filteredItems);
   return (
     <nav
       ref={navbarRef}
@@ -83,7 +86,7 @@ function Navbar() {
     >
       <div className="navbar__inner">
         <div className="navbar__items">
-          {items != null && items.length !== 0 && (
+          {filteredItems != null && filteredItems.length !== 0 && (
             <button
               aria-label="Navigation bar toggle"
               className="navbar__toggle clean-btn"
@@ -138,7 +141,7 @@ function Navbar() {
         <div className="navbar-sidebar__items">
           <div className="menu">
             <ul className="menu__list">
-              {items.map((item, i) => (
+              {filteredItems.map((item, i) => (
                 <NavbarItem
                   mobile
                   {...item} // TODO fix typing
