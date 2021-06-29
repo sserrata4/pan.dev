@@ -38,12 +38,12 @@ const blogs = (module.exports = {
       },
       items: [
         {
-          href: "https://gallery.pan.dev",
+          to: "https://gallery.pan.dev",
           label: "Code Gallery",
           position: "right",
         },
         {
-          href: "https://medium.com/palo-alto-networks-developer-blog",
+          to: "https://medium.com/palo-alto-networks-developer-blog",
           label: "Blog",
           position: "right",
         },
@@ -60,6 +60,9 @@ const blogs = (module.exports = {
         src: "img/PANW_Parent_Logo_Black.svg",
       },
       copyright: `Copyright © ${new Date().getFullYear()} Palo Alto Networks, Inc.`,
+    },
+    gtag: {
+      trackingID: "GTM-PLXD79N",
     },
   },
   themes: [require.resolve("@docusaurus/theme-live-codeblock")],
@@ -97,7 +100,4 @@ const blogs = (module.exports = {
       },
     ],
   ],
-  gtag: {
-    trackingID: "GTM-PLXD79N",
-  },
 });
