@@ -48,7 +48,7 @@ function Navbar() {
     navbar: { items, hideOnScroll, style },
     colorMode: { disableSwitch: disableColorModeSwitch },
   } = useThemeConfig();
-  filteredItems = removeSearchFromNavbar(items);
+  const filteredItems = removeSearchFromNavbar(items);
   const [sidebarShown, setSidebarShown] = useState(false);
   const { isDarkTheme, setLightTheme, setDarkTheme } = useThemeContext();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
