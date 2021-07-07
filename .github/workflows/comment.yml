@@ -12,7 +12,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           checkName: trashbot (pandev)
-          ref: ${{ github.event.check_run.app.pull_requests.head.sha }}
+          ref: ${{ github.event.check_run.head_sha }}
 
       - name: Do something with a passing build
         if: steps.wait-for-build.outputs.conclusion == 'success'
