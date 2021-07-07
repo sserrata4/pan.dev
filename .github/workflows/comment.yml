@@ -9,7 +9,8 @@ jobs:
       - name: Dump Github context        
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: |
+          echo ${{ github.event.pull_requests.head.sha }}
         
       - name: Wait for build to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
