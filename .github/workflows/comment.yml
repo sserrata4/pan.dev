@@ -5,20 +5,14 @@ jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    steps:
-      - name: Dump Github context        
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          echo ${{ github.event.pull_requests.head.sha }}
-        
+    steps:        
       - name: Wait for build to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           checkName: trashbot (pandev)
-          ref: ${{ github.event.pull_requests.head.sha }}
+          ref: ${{ github.event.check_run.pull_requests.head.sha }}
 
       - name: Do something with a passing build
         if: steps.wait-for-build.outputs.conclusion == 'success'
