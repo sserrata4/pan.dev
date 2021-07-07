@@ -3,7 +3,7 @@ on: check_run
   
 jobs:
   check:
-    if: ${{ github.event.action == "created" }}
+    if: github.event.action == 'created'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
