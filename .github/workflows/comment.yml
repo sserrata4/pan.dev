@@ -16,8 +16,8 @@ jobs:
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: trashbot%20(pandev)
-          ref: ${{ github.event.pull_request.head.sha }}
+          checkName: trashbot (pandev)
+          ref: ${{ github.event.pull_requests.head.sha }}
 
       - name: Do something with a passing build
         if: steps.wait-for-build.outputs.conclusion == 'success'
