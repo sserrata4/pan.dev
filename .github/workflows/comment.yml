@@ -1,5 +1,5 @@
 name: Comment on PR
-on: status
+on: check_run
   
 jobs:
   check:
