@@ -95,5 +95,11 @@ const blogs = (module.exports = {
         priority: 0.5,
       },
     ],
+    [
+      "docusaurus2-dotenv",
+      {
+        path: "./.env",
+      },
+    ],
   ],
 });

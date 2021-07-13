@@ -15,6 +15,7 @@ import NavbarItem from "@theme/NavbarItem";
 import Toggle from "@theme/Toggle";
 import clsx from "clsx";
 import React, { useCallback, useEffect, useState } from "react";
+import getFirebase from "../../components/Firebase/auth";
 import styles from "./styles.module.css"; // retrocompatible with v1
 
 const DefaultNavItemPosition = "right"; // If split links by left/right
@@ -34,6 +35,13 @@ function splitNavItemsByPosition(items) {
 }
 
 function Navbar() {
+  const firebase = getFirebase();
+  const userSessionKey = Object.keys(sessionStorage).filter((key) =>
+    key.startsWith("firebase:authUser")
+  )[0];
+  const userSession = userSessionKey
+    ? JSON.parse(sessionStorage.getItem(userSessionKey))
+    : null;
   const {
     navbar: { items, hideOnScroll, style },
     colorMode: { disableSwitch: disableColorModeSwitch },
@@ -65,6 +73,9 @@ function Navbar() {
   }, [windowSize]);
   const hasSearchNavbarItem = items.some((item) => item.type === "search");
   const { leftItems, rightItems } = splitNavItemsByPosition(items);
+  const handleClick = () => {
+    sessionStorage.clear();
+  };
   return (
     <nav
       ref={navbarRef}
@@ -109,6 +120,20 @@ function Navbar() {
               checked={isDarkTheme}
               onChange={onToggleChange}
             />
+          )}
+          {userSession ? (
+            <a
+              className="avatar__photo-link avatar__photo avatar__photo--sm"
+              href="#"
+              onClick={() => firebase.auth().signOut()}
+            >
+              <img
+                title={`Logout ${userSession.displayName}`}
+                src={userSession.photoURL}
+              />
+            </a>
+          ) : (
+            <></>
           )}
         </div>
       </div>
