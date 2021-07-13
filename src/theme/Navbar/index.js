@@ -36,12 +36,16 @@ function splitNavItemsByPosition(items) {
 
 function Navbar() {
   const firebase = getFirebase();
-  const userSessionKey = Object.keys(sessionStorage).filter((key) =>
-    key.startsWith("firebase:authUser")
-  )[0];
-  const userSession = userSessionKey
-    ? JSON.parse(sessionStorage.getItem(userSessionKey))
-    : null;
+  const userSessionKey =
+    typeof window !== "undefined"
+      ? Object.keys(sessionStorage).filter((key) =>
+          key.startsWith("firebase:authUser")
+        )[0]
+      : null;
+  const userSession =
+    typeof window !== "undefined" && userSessionKey
+      ? JSON.parse(sessionStorage.getItem(userSessionKey))
+      : null;
   const {
     navbar: { items, hideOnScroll, style },
     colorMode: { disableSwitch: disableColorModeSwitch },
@@ -73,9 +77,7 @@ function Navbar() {
   }, [windowSize]);
   const hasSearchNavbarItem = items.some((item) => item.type === "search");
   const { leftItems, rightItems } = splitNavItemsByPosition(items);
-  const handleClick = () => {
-    sessionStorage.clear();
-  };
+
   return (
     <nav
       ref={navbarRef}
