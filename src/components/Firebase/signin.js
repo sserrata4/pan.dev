@@ -21,9 +21,6 @@ function SignInScreen(props) {
                 className="avatar__photo avatar__photo--xl"
                 src="/img/PANW_Parent_Logo_Black.svg"
               />
-              <div className="avatar__intro">
-                <div className="avatar__name">Signin</div>
-              </div>
             </div>
           </div>
           <div className="card__body">
