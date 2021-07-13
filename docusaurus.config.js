@@ -99,6 +99,7 @@ const blogs = (module.exports = {
       "docusaurus2-dotenv",
       {
         path: "./.env",
+        systemvars: true,
       },
     ],
   ],
