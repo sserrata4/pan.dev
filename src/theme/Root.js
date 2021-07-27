@@ -17,7 +17,22 @@ function Root({ children }) {
   useEffect(() => {
     if (!firebase) return;
     firebase.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      const fbCurrentUser = firebase.auth().currentUser;
+      fbCurrentUser
+        ? fbCurrentUser
+            .getIdTokenResult()
+            .then((idTokenResult) => {
+              if (!idTokenResult.claims.beta) {
+                firebase.auth().signOut();
+              } else {
+                console.log(fbCurrentUser);
+                setCurrentUser(user);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+        : setCurrentUser(false);
     });
   }, [firebase]);
 
