@@ -124,16 +124,63 @@ function Navbar() {
             />
           )}
           {userSession ? (
-            <a
-              className="avatar__photo-link avatar__photo avatar__photo--sm"
-              href="#"
-              onClick={() => firebase.auth().signOut()}
-            >
+            <div className="dropdown dropdown--hoverable dropdown--right">
               <img
-                title={`Logout ${userSession.displayName}`}
                 src={userSession.photoURL}
+                className="avatar__photo-link avatar__photo avatar__photo--sm"
               />
-            </a>
+              <ul className="dropdown__menu">
+                <li>
+                  <div className={clsx("card", styles.userDropdownCard)}>
+                    <div className="card__header">
+                      <div className="avatar avatar--vertical">
+                        <img
+                          className={clsx(
+                            "avatar__photo avatar__photo--xl",
+                            styles.userDropdownAvatar
+                          )}
+                          src={userSession.photoURL}
+                        />
+                        <div className="avatar__intro">
+                          <div className="avatar__name">
+                            {userSession.displayName}
+                          </div>
+                          <small className="avatar__subtitle text text--secondary">
+                            {userSession.email}
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card__footer">
+                      <a
+                        onClick={() => firebase.auth().signOut()}
+                        className="button button--primary button--block"
+                      >
+                        Sign out
+                      </a>
+                      <hr></hr>
+                      <a
+                        target="_blank"
+                        href="https://www.paloaltonetworks.com/legal-notices/terms-of-use"
+                      >
+                        <small className="text text--secondary">
+                          Terms of Use
+                        </small>
+                      </a>
+                      &emsp;
+                      <a
+                        target="_blank"
+                        href="https://www.paloaltonetworks.com/legal-notices/privacy"
+                      >
+                        <small className="text text--secondary">
+                          Privacy Policy
+                        </small>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
           ) : (
             <></>
           )}
