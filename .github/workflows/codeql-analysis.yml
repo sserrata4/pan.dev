@@ -1,7 +1,14 @@
 name: "CodeQL"
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Pull Request ref'     
+        required: true
+      repo:
+        description: 'Pull Request repo'     
+        required: true
 
 jobs:
   analyze:
