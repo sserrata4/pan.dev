@@ -23,23 +23,6 @@ jobs:
       with:
         ref: ${{github.event.pull_request.head.ref}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
-      
-    - name: Get changed files
-      id: changed_files
-      uses: tj-actions/changed-files@7bfa539f0d6ed4331d2899e7440a1946929829c1 # v8.4
-      with:
-        separator: ","
-        files: |
-          .github
-          
-    - name: Verify changed files
-      if: steps.changed_files.outputs.any_changed == 'true'
-      run: |
-        echo "::error::Changes to files in .github directory are not permitted."
-        for file in "${{ steps.changed_files.outputs.all_changed_files }}"; do
-          echo "::error::$file was changed."
-        done
-        exit 1
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
@@ -48,15 +31,3 @@ jobs:
         
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-        
-    - name: Save PR number
-      shell: bash
-      env:
-        PR_NUM: ${{ github.event.number }}
-      run: echo $PR_NUM > pr_num.txt
-
-    - name: Upload PR number
-      uses: actions/upload-artifact@27121b0bdffd731efa15d66772be8dc71245d074 # v2.2.4
-      with:
-        name: pr_num
-        path: ./pr_num.txt
