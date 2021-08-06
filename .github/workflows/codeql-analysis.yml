@@ -21,6 +21,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+      with:
+        ref: ${{github.event.pull_request.head.ref}}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
       
     - name: Get changed files
       id: changed_files
