@@ -47,6 +47,7 @@ jobs:
     steps:
       - uses: actions/github-script@v4
         with:
+          github-token: ${{ secrets.BOT_TOKEN }}
           script: |
             github.issues.createComment({
               issue_number: ${{ github.event.inputs.prNumber }},
