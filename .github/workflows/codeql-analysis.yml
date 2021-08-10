@@ -9,6 +9,9 @@ on:
       repo:
         description: 'Pull Request repo'     
         required: true
+      prNumber:
+        description: 'Pull Request number'     
+        required: true
 
 jobs:
   analyze:
@@ -38,3 +41,16 @@ jobs:
         
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+  comment:
+    needs: analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v4
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: ${{ github.event.inputs.prNumber }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '/gcbrun'
+            })
